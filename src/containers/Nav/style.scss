@@ -1,17 +1,27 @@
 nav {
-  position: relative;
-  text-align: center;
+  position: fixed;
+  display: flex;
+  width: 100%;
+  font-size: 1.75rem;
+  line-height: 2.2rem;
 
-  a {
-    display: inline-block;
-    font-family: 'Spectral SC', serif;
-    padding: 2rem 2rem;
+  .nav__item {
+    width: calc((100% - 3.75rem)/4);
+    margin-right: 0.625rem;
   }
+}
 
-  .user-info {
-    position: absolute;
-    top: 1.8rem;
-    right: 2rem;
-    color: #999;
+//tablet
+@media (max-width: 768px) {
+  nav {
+    position: relative;
+
+    .nav__item {
+      width: auto;
+    }
+
+    .nav__item--about, .nav__item--index {
+      display: none;
+    }
   }
 }

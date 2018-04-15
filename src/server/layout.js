@@ -89,7 +89,7 @@ function renderFullPage(content, reduxState, head, currentEntry, clientStats) {
         <link rel="icon" type="image/x-icon" href=${favicon} />
         <link rel="apple-touch-icon" href=${touchicon} />
 
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
         ${relatedCSS}
         ${targetCSS}
 

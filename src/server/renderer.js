@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ReactServer from 'react-dom/server';
 import { StaticRouter as Router, matchPath } from 'react-router';
@@ -29,6 +30,7 @@ function applyRouteCheckResult(req) {
     reduxStore: store,
     query,
     entryRouteInfo,
+    defaultData,
   } = req;
   // // get whatever info you want from store
   // let storeState = store.getState();
@@ -51,7 +53,7 @@ function applyRouteCheckResult(req) {
   let loadDataPromise;
 
   // it's possible no loadData set
-  if (_isFunction(loadData)) loadDataPromise = store.dispatch(loadData(match, query));
+  if (_isFunction(loadData)) loadDataPromise = store.dispatch(loadData(match, query, defaultData));
   // loadDate can be an action or a promise
   if (loadDataPromise && loadDataPromise.then) {
     promises.push(loadDataPromise);
@@ -98,6 +100,7 @@ function responsePage(req, res, clientStats) {
 
 export default function renderer({ clientStats }) {
   return (req, res) => {
+    debug(req.defaultData);
     applyInitStore(req);
     applyRouteCheckResult(req).then(() => {
       responsePage(req, res, clientStats);

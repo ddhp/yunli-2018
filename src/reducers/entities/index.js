@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import meReducer from './me';
-import postReducer from './post';
+import projectReducer from './project';
+import imageReducer from './image';
+import authorReducer from './author';
 
 export default combineReducers({
-  me: meReducer,
-  post: postReducer,
+  project: projectReducer,
+  image: imageReducer,
+  author: authorReducer,
 });

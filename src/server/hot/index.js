@@ -2,10 +2,13 @@ import express from 'express';
 import stdout from '../../stdout';
 import apiMiddleware from '../api';
 import hotMiddleware from './middleware';
+import defaultDataMiddleware from '../defaultDataMiddleware';
 
 const debug = stdout('server:index');
 
 const app = express();
+app.use(defaultDataMiddleware);
+app.use('/statics', express.static('statics'));
 apiMiddleware(app);
 hotMiddleware(app);
 

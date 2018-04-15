@@ -11,6 +11,7 @@ apiMiddleware(app);
 
 // Serve static files
 app.use('/assets', express.static('dist/assets'));
+app.use('/statics', express.static('statics'));
 app.use(renderer({ clientStats: stats }));
 
 // import app from './app';

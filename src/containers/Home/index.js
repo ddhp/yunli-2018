@@ -1,11 +1,13 @@
+/* eslint react/prefer-stateless-function: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { get as _get } from 'lodash';
-import action from '../../actions';
-import FormPostComponent from './FormPost';
-import PostlistComponent from './Postlist';
+import NavComponent from '../Nav';
+import ProjectItem from './ProjectItem';
+import IndexSectionComponent from './IndexSection';
+// import action from '../../actions';
 import stdout from '../../stdout';
 import './style.scss';
 
@@ -13,21 +15,29 @@ const debug = stdout('container/Home');
 
 export class Home extends React.Component {
   static propTypes = {
-    dummyAction: PropTypes.func.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.number),
+    author: PropTypes.object,
+    projects: PropTypes.arrayOf(PropTypes.object),
   }
 
   static defaultProps = {
-    posts: [],
+    author: {},
+    projects: [],
   }
 
-  componentDidMount() {
-    this.props.dummyAction();
+  // componentDidMount() {
+  //   this.props.dummyAction();
+  // }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    // this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    debug(error, info, this);
   }
 
   render() {
     debug('render method');
-    const { posts } = this.props;
+    const { projects, author } = this.props;
 
     return (
       <div className="page--home">
@@ -37,31 +47,63 @@ export class Home extends React.Component {
           <meta name="og:title" content="home page" />
         </Helmet>
 
-        <FormPostComponent />
+        <NavComponent />
 
-        <ul className="list--posts">
-          {posts.map(p => <PostlistComponent post={p} key={p.id} />)}
-        </ul>
+        <section className="intro">
+          {author.intro}
+        </section>
+
+        <section className="list--projects">
+          {projects.map(p => <ProjectItem project={p} key={p.id} />)}
+        </section>
+
+        <IndexSectionComponent />
+
+        <section className="about" id="about">
+          {author.about}
+        </section>
+
+        <section className="contact">
+          <div className="email">
+            {author.email}
+          </div>
+          <div className="phone">
+            {author.phone}
+          </div>
+        </section>
+
+        <section className="designby">
+          {author.designby}
+        </section>
+
       </div>
     );
   }
 }
 
 export function mapStateToProps(state) {
-  const postEntity = _get(state, 'entities.post');
-  const postIds = _get(state, 'pages.home.posts');
-  let posts = postIds.map(id => postEntity[id] || {});
-  posts = posts.slice(0, 20);
-  debug(posts);
+  const projectEntity = _get(state, 'entities.project');
+  const imageEntity = _get(state, 'entities.image');
+  const author = _get(state, 'entities.author');
+  debug(imageEntity);
+  const projectIds = _get(state, 'pages.home.projects');
+  const projects = projectIds.map((id) => {
+    const project = projectEntity[id];
+    if (!project) return {};
+    project.images = project.images.map(iId => imageEntity[iId] || {});
+    return project;
+  });
+  debug(projects);
 
   return {
-    posts,
+    projects,
+    author: author['1'],
   };
 }
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(/* dispatch */) {
   return {
-    dummyAction: () => dispatch(action.dummyAction()),
+    // dummyAction: () => dispatch(action.dummyAction()),
   };
 }
 

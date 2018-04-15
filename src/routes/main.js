@@ -5,13 +5,13 @@ import { Helmet } from 'react-helmet';
 import { get as _get, isFunction as _isFunction } from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { getMatchedRoute, renderRoutes } from './utils';
-import NavComponent from '../containers/Nav';
 import HomeComponent from '../containers/Home';
-import AboutComponent from '../containers/About';
-import DemoComponent from '../containers/Demo';
-import FooterComponent from '../containers/Footer';
 import FourOFourComponent from '../containers/404';
 import action from '../actions';
+
+import stdout from '../stdout';
+
+const debug = stdout('routes/main');
 
 /**
  * put 404 route to the last
@@ -38,20 +38,13 @@ export const getRoutes = () => ({
       key: 'home',
       exact: true,
       component: HomeComponent,
-      loadData: (/* match, query */) =>
-      // return last action,
-      // it would be a promise if it's an aync request
-        action.fetchPosts(),
+      loadData: (match, query, context) => {
+        debug(context);
+        // return last action,
+        // it would be a promise if it's an aync request
+        return action.setDefaultData(context);
+      },
       redirect: () => false,
-    }, {
-      path: '/about',
-      key: 'about',
-      component: AboutComponent,
-      redirect: false,
-    }, {
-      path: '/demo',
-      key: 'demo',
-      component: DemoComponent,
     }, {
       key: '404',
       component: FourOFourComponent,
@@ -76,9 +69,7 @@ export const MainRoute = ({ location }) => {
         <meta name="description" content="react isomorphic boilerplate by ddhp" />
         <meta name="og:title" content="title set in entry-main" />
       </Helmet>
-      <NavComponent />
       {renderRoutes(routesInfo.routes, redirect)}
-      <FooterComponent />
     </div>
   );
 };
