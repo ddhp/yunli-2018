@@ -29,6 +29,7 @@ export default async function defaultDataMiddleware (req, res, next) {
     images.map((image) => {
       const projectId = image.projectId;
       const project = projectObj[projectId];
+      image.projectName = project.name;
       project.images.push(image);
     });
     // console.log(projects, images);
