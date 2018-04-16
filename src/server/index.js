@@ -2,6 +2,7 @@ import express from 'express';
 import stdout from '../stdout';
 import apiMiddleware from './api';
 import renderer from './renderer';
+import defaultDataMiddleware from './defaultDataMiddleware';
 import stats from '../../compilation-stats.json'; // eslint-disable-line
 
 const debug = stdout('server:index');
@@ -10,6 +11,7 @@ const app = express();
 apiMiddleware(app);
 
 // Serve static files
+app.use(defaultDataMiddleware);
 app.use('/assets', express.static('dist/assets'));
 app.use('/statics', express.static('statics'));
 app.use(renderer({ clientStats: stats }));
