@@ -48,13 +48,19 @@ body {
 a {
   text-decoration: none;
   color: #2c2c2c;
-  transition: color 200ms ease-in-out;
-
-  &:hover {
-    color: #9a9a9a;
-  }
+  // transition: color 200ms ease-in-out;
+  //
+  // &:hover {
+  //   color: #9a9a9a;
+  // }
 }
 
 [class*="page--"] {
   min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 90%;
+  }
 }

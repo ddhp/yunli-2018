@@ -10,6 +10,8 @@ class ProjectItem extends React.Component {
 
     this.onControlClick = this.onControlClick.bind(this);
     this.onThumbnailClick = this.onThumbnailClick.bind(this);
+    this.onControlMouseEnter = this.onControlMouseEnter.bind(this);
+    this.onControlMouseLeave = this.onControlMouseLeave.bind(this);
     this.onSwipedRight = this.onControlClick.bind(this, {
       currentTarget: {
         getAttribute: () => 'left',
@@ -37,6 +39,15 @@ class ProjectItem extends React.Component {
     } else {
       nextIndex = Math.min(images.length - 1, currentIndex + 1);
     }
+    if (nextIndex === 0) {
+      this.setState({
+        showLeftControl: false,
+      });
+    } else if (nextIndex === images.length - 1) {
+      this.setState({
+        showRightControl: false,
+      });
+    }
     this.setState({
       currentIndex: nextIndex,
     });
@@ -47,6 +58,41 @@ class ProjectItem extends React.Component {
     this.setState({
       currentIndex: index,
     });
+  }
+
+  onControlMouseEnter(e) {
+    const dir = e.currentTarget.getAttribute('data-dir');
+    const { project } = this.props;
+    const { images } = project;
+    const { currentIndex } = this.state;
+    if (dir === 'left') {
+      if (currentIndex > 0) {
+        return this.setState({
+          showLeftControl: true,
+        });
+      }
+    }
+    if (dir === 'right') {
+      if (currentIndex < images.length - 1) {
+        return this.setState({
+          showRightControl: true,
+        });
+      }
+    }
+    return null;
+  }
+
+  onControlMouseLeave(e) {
+    const dir = e.currentTarget.getAttribute('data-dir');
+    if (dir === 'left') {
+      this.setState({
+        showLeftControl: false,
+      });
+    } else {
+      this.setState({
+        showRightControl: false,
+      });
+    }
   }
 
   renderThumbnails() {
@@ -77,7 +123,7 @@ class ProjectItem extends React.Component {
   render() {
     const { project } = this.props;
     const { images } = project;
-    const { currentIndex } = this.state;
+    const { currentIndex, showLeftControl, showRightControl } = this.state;
 
     return (
       <div className="project-item" id={project.name}>
@@ -104,20 +150,28 @@ class ProjectItem extends React.Component {
               </div>
               <div className="gallery__controls">
                 <div
-                  className="to-left"
+                  className={classNames('to-left', {
+                    'is-shown': showLeftControl,
+                  })}
                   data-dir="left"
                   onClick={this.onControlClick}
                   onKeyPress={this.onControlClick}
+                  onMouseEnter={this.onControlMouseEnter}
+                  onMouseLeave={this.onControlMouseLeave}
                   role="button"
                   tabIndex="0"
                 >
                   {'<-'}
                 </div>
                 <div
-                  className="to-right"
+                  className={classNames('to-right', {
+                    'is-shown': showRightControl,
+                  })}
                   data-dir="right"
                   onClick={this.onControlClick}
                   onKeyPress={this.onControlClick}
+                  onMouseEnter={this.onControlMouseEnter}
+                  onMouseLeave={this.onControlMouseLeave}
                   role="button"
                   tabIndex="-1"
                 >

@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   margin: 0 -0.3125rem; 
   padding-top: 4.37rem;
+  overflow: hidden;
 
   .index-img {
     position: relative;
@@ -32,6 +33,8 @@
       top: 0.3125rem;
       left: 0.3125rem;
       opacity: 0;
+      font-size: 1.75rem;
+      line-height: 2.1875rem;
     }
 
     &:hover {
@@ -51,6 +54,7 @@
   .section--index {
     .index-img {
       width: calc((100%)/3);
+      padding: 0.15rem;
     }
   }
 }

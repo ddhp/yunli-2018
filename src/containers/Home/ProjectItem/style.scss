@@ -78,10 +78,10 @@
       width: 50%;
       height: 100%;
       opacity: 0;
-      cursor: pointer;
 
-      &:hover {
+      &.is-shown {
         opacity: 1;
+        cursor: pointer;
       }
 
       &:focus {
@@ -95,5 +95,17 @@
 @media (max-width: 768px) {
   .project-item {
     width: 100%;
+
+    .project__body {
+      flex-wrap: wrap;
+
+      .project__body-left {
+        width: 100%;
+      }
+
+      .description {
+        width: 100%;
+      }
+    }
   }
 }

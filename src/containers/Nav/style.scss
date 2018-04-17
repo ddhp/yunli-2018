@@ -10,6 +10,18 @@ nav {
     width: calc((100% - 3.75rem)/4);
     margin-right: 0.625rem;
   }
+
+  .nav__item--about, .nav__item--index {
+    &.active {
+      a {
+        border-bottom: 2px solid black;
+      }
+    }
+
+    a:hover {
+      border-bottom: 2px solid black;
+    }
+  }
 }
 
 //tablet
