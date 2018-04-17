@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { get as _get } from 'lodash';
 import NavComponent from '../Nav';
@@ -40,12 +39,6 @@ export class Home extends React.Component {
 
     return (
       <div className="page--home">
-        <Helmet>
-          <title>Home</title>
-          <meta name="description" content="home page shows posts" />
-          <meta name="og:title" content="home page" />
-        </Helmet>
-
         <NavComponent />
 
         <section className="intro">

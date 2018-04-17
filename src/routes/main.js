@@ -64,10 +64,10 @@ export const MainRoute = ({ location }) => {
 
   return (
     <div>
-      <Helmet titleTemplate="%s - by ddhp">
-        <title>title set in entry-main</title>
-        <meta name="description" content="react isomorphic boilerplate by ddhp" />
-        <meta name="og:title" content="title set in entry-main" />
+      <Helmet titleTemplate="">
+        <title>Yun Li</title>
+        <meta name="description" content="Yun Li, Paris-based Taiwanese industrial designer" />
+        <meta name="og:title" content="Yun Li, Paris-based Taiwanese industrial designer" />
       </Helmet>
       {renderRoutes(routesInfo.routes, redirect)}
     </div>
