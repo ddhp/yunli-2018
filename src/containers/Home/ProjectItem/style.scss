@@ -25,11 +25,13 @@
 
     .description {
       width: calc((100% - 1.25rem)/3*2);
+      white-space: pre-line;
     }
   }
 
   .gallery__thumbnails {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 1.25rem;
 
     .thumbnail {
