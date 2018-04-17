@@ -17,7 +17,7 @@ export default function browserConfig(env) {
   const entry = {
     main: path.resolve(__dirname, 'src/entries/main'),
     // add other entry here
-    'another-entry': path.resolve(__dirname, 'src/entries/anotherEntry'),
+    // 'another-entry': path.resolve(__dirname, 'src/entries/anotherEntry'),
   };
 
   config.output = {
