@@ -64,9 +64,12 @@ export class Home extends React.Component {
           </div>
         </section>
 
-        <section className="designby">
-          {author.designby}
-        </section>
+        <section
+          className="designby"
+          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+            __html: author.designby,
+          }}
+        />
 
       </div>
     );
