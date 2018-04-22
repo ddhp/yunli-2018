@@ -5,6 +5,11 @@
   padding-top: 4.37rem;
   overflow: hidden;
 
+  .mobile-title {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   .index-img {
     position: relative;
     width: calc((100%)/4);
@@ -33,14 +38,10 @@
       left: 0.3125rem;
       opacity: 0;
       font-size: 1.75rem;
-      line-height: 2.1875rem;
     }
 
     &:hover {
       color: black;
-      img {
-        opacity: 0;
-      }
       .project-name {
         opacity: 1;
       }

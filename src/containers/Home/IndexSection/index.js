@@ -83,6 +83,10 @@ export class IndexSection extends React.Component {
 
     return (
       <section className="section--index" id="index">
+        {isBelow768 &&
+          <p className="mobile-title">Index</p>
+        }
+
         {dup.map((i) => {
           const c = classNames('index-img', {
             'same-project-hovered': hoveredProjectId === i.projectId,

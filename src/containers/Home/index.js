@@ -86,6 +86,9 @@ export class Home extends React.Component {
         <IndexSectionComponent />
 
         <section className="about" id="about">
+          {isBelow768 &&
+            <p className="mobile-title">About</p>
+          }
           {author.about}
         </section>
 

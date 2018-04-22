@@ -24,6 +24,10 @@
     text-indent: calc((100% - 1.875rem)/4 + 0.625rem*1);
     margin: 0 0.3125rem;
     hyphens: auto;
+
+    .mobile-title {
+      margin-bottom: 2rem;
+    }
   }
 
   .contact {
@@ -60,6 +64,7 @@
 
     .about {
       width: 100%;
+      text-indent: 0;
     }
 
     .designby {
