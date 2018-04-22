@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Swipeable from 'react-swipeable';
+import arrowPng from '../../../assets/images/arrowx2.png';
 import './style.scss';
 
 class ProjectItem extends React.Component {
@@ -161,7 +162,7 @@ class ProjectItem extends React.Component {
                   role="button"
                   tabIndex="0"
                 >
-                  {'<-'}
+                  <img src={arrowPng} alt="arrow-right" />
                 </div>
                 <div
                   className={classNames('to-right', {
@@ -175,7 +176,7 @@ class ProjectItem extends React.Component {
                   role="button"
                   tabIndex="-1"
                 >
-                  {'->'}
+                  <img src={arrowPng} alt="arrow-right" />
                 </div>
               </div>
             </Swipeable>

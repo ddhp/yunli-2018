@@ -2,7 +2,7 @@
   font-size: 1rem;
   line-height: 1.25rem;
   padding-top: 4.37rem;
-  width: calc((100% - 1.875rem)/4*3);
+  width: calc((100% - 1.875rem)/4*3 + 0.625rem*2);
 
   img {
     width: 100%;
@@ -10,7 +10,7 @@
 
   .name {
     font-size: 1.75rem;
-    line-height: 2.2rem;
+    padding-top: 0.4375rem;
     margin-bottom: 0.625rem;
   }
 
@@ -24,7 +24,7 @@
     }
 
     .description {
-      width: calc((100% - 1.25rem)/3*2);
+      width: calc((100% - 1.25rem)/3*2 + 0.625rem);
       white-space: pre-line;
     }
   }
@@ -77,9 +77,23 @@
     left: 0;
 
     .to-left, .to-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 50%;
       height: 100%;
       opacity: 0;
+
+      &.to-left {
+        img {
+          transform: scale(-1, 1);
+        }
+      }
+
+      img {
+        width: 2rem;
+        margin-top: -4rem;
+      }
 
       &.is-shown {
         opacity: 1;

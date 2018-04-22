@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import animateScrollTo from 'animated-scroll-to';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 // import { get as _get } from 'lodash';
@@ -15,11 +16,21 @@ class Nav extends React.Component {
 
     this.onScroll = this.onScroll.bind(this);
     this.checkScrollTop = this.checkScrollTop.bind(this);
+    this.onAClick = this.onAClick.bind(this);
     this.tick = false;
   }
 
   componentDidMount() {
     document.addEventListener('scroll', this.onScroll);
+  }
+
+  onAClick(e) {
+    e.preventDefault();
+    const target = e.currentTarget.getAttribute('data-target');
+    this.setState();
+    window.history.pushState(null, null, `#${target}`);
+    const targetDOM = document.querySelector(`#${target}`);
+    animateScrollTo(targetDOM);
   }
 
   onScroll() {
@@ -56,21 +67,39 @@ class Nav extends React.Component {
     return (
       <nav>
         <div className="nav__item">
-          <a href="#top">Yun Li</a>
+          <a
+            href="#top"
+            onClick={this.onAClick}
+            data-target="intro"
+          >
+            Yun Li
+          </a>
         </div>
         <div
           className={classNames('nav__item nav__item--about', {
             active: currentActive === 'about',
           })}
         >
-          <a href="#about">About</a>
+          <a
+            href="#about"
+            onClick={this.onAClick}
+            data-target="about"
+          >
+            About
+          </a>
         </div>
         <div
           className={classNames('nav__item nav__item--index', {
             active: currentActive === 'index',
           })}
         >
-          <a href="#index">Index</a>
+          <a
+            href="#index"
+            onClick={this.onAClick}
+            data-target="index"
+          >
+            Index
+          </a>
         </div>
       </nav>
     );

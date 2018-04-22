@@ -8,22 +8,28 @@
     padding-top: 4.4rem;
     font-size: 1.75rem;
     line-height: 2.2rem;
+    margin: 0 0.3125rem;
     margin-bottom: 4.37rem;
+  }
+
+  .list--projects {
+    margin: 0 0.3125rem;
   }
   
   .about {
     width: calc((100% - 1.875rem)/4*3 + 0.625rem*2);
     font-size: 1.75rem;
     line-height: 2.2rem;
-    padding-top: 4.37rem;
+    padding-top: 5.37rem;
     text-indent: calc((100% - 1.875rem)/4 + 0.625rem*1);
+    margin: 0 0.3125rem;
+    hyphens: auto;
   }
 
   .contact {
     width: calc((100% - 1.875rem)/4*2 + 0.625rem);
-    margin-left: calc((100% - 1.875rem)/4 + 0.625rem*2);
+    margin-left: calc((100% - 1.875rem)/4 + 0.625rem + 0.3125rem);
     margin-top: 4.37rem;
-    margin-bottom: 4.4rem;
     word-break: break-word;
 
     .email, .phone {
@@ -34,6 +40,7 @@
 
   .designby {
     margin-left: calc((100% - 1.875rem)/4*3 + 0.625rem*3);
+    margin-top: 4.4rem;
     margin-bottom: 2rem;
 
     a:hover {
@@ -47,7 +54,8 @@
   .page--home {
     .contact {
       width: 100%;
-      margin-left: 0;
+      margin-left: 0.3125rem;
+      margin-right: 0.3125rem;
     }
 
     .about {
@@ -55,7 +63,8 @@
     }
 
     .designby {
-      margin-left: 0;
+      margin-left: 0.3125rem;
+      margin-right: 0.3125rem;
       text-align: right;
     }
   }

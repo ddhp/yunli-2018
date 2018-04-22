@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { get as _get } from 'lodash';
+import { get as _get, debounce as _debounce } from 'lodash';
 import NavComponent from '../Nav';
 import ProjectItem from './ProjectItem';
 import IndexSectionComponent from './IndexSection';
@@ -22,9 +22,31 @@ export class Home extends React.Component {
     projects: [],
   }
 
-  // componentDidMount() {
-  //   this.props.dummyAction();
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.onResize = _debounce(this.onResize.bind(this), 250);
+  }
+
+  componentDidMount(/* nextProps, prevState */) {
+    if (typeof window !== 'undefined') {
+      this.onResize();
+      window.addEventListener('resize', this.onResize);
+    }
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize);
+    }
+  }
+
+  onResize() {
+    debug(document.body.offsetWidth);
+    this.setState({
+      isBelow768: document.body.offsetWidth <= 768,
+    });
+  }
 
   componentDidCatch(error, info) {
     // Display fallback UI
@@ -36,6 +58,7 @@ export class Home extends React.Component {
   render() {
     debug('render method');
     const { projects, author } = this.props;
+    const { isBelow768 } = this.state;
 
     return (
       <div className="page--home">
@@ -44,6 +67,17 @@ export class Home extends React.Component {
         <section className="intro">
           {author.intro}
         </section>
+
+        {isBelow768 &&
+          <section className="contact">
+            <div className="email">
+              {author.email}
+            </div>
+            <div className="phone">
+              {author.phone}
+            </div>
+          </section>
+        }
 
         <section className="list--projects">
           {projects.map(p => <ProjectItem project={p} key={p.id} />)}
@@ -55,14 +89,16 @@ export class Home extends React.Component {
           {author.about}
         </section>
 
-        <section className="contact">
-          <div className="email">
-            {author.email}
-          </div>
-          <div className="phone">
-            {author.phone}
-          </div>
-        </section>
+        {!isBelow768 &&
+          <section className="contact">
+            <div className="email">
+              {author.email}
+            </div>
+            <div className="phone">
+              {author.phone}
+            </div>
+          </section>
+        }
 
         <section
           className="designby"
