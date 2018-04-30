@@ -35,9 +35,9 @@ class ProjectItem extends React.Component {
   onSwiping(e, deltaX, deltaY, absX, absY, velocity) {
     const halfGalleryWidth = this.galleryRef.current.offsetWidth / 2;
     // const currentTransform = this.galleryRef.current.style.transform;
-    console.log(e, deltaX, deltaY, absX, absY, velocity);
+    // console.log(e, deltaX, deltaY, absX, absY, velocity);
     if (!this.tick) {
-      console.log(Math.abs(deltaX), halfGalleryWidth);
+      // console.log(Math.abs(deltaX), halfGalleryWidth);
       if (Math.abs(deltaX) > halfGalleryWidth) {
         this.setState({
           overSwiped: true,
@@ -137,7 +137,7 @@ class ProjectItem extends React.Component {
     if (translatePx) {
       nextTransform += `translateX(${translatePx}px)`;
     }
-    console.log(nextTransform);
+    // console.log(nextTransform);
     this.galleryRef.current.style.transform = nextTransform;
   }
 
