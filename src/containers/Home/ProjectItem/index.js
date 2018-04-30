@@ -32,7 +32,7 @@ class ProjectItem extends React.Component {
     this.tick = false;
   }
 
-  onSwiping(e, deltaX, deltaY, absX, absY, velocity) {
+  onSwiping(e, deltaX/* , deltaY, absX, absY, velocity */) {
     const halfGalleryWidth = this.galleryRef.current.offsetWidth / 2;
     // const currentTransform = this.galleryRef.current.style.transform;
     // console.log(e, deltaX, deltaY, absX, absY, velocity);
