@@ -94,6 +94,7 @@ export class Gallery extends React.Component {
       <div className="gallery">
         <div className="gallery__body-wrapper">
           <Swipeable
+            onSwiping={this.onSwiping}
             onSwipedRight={this.onSwipedRight}
             onSwipedLeft={this.onSwipedLeft}
             preventDefaultTouchmoveEvent

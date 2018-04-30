@@ -9,6 +9,7 @@ class ProjectItem extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onSwiping = this.onSwiping.bind(this);
     this.onControlClick = this.onControlClick.bind(this);
     this.onThumbnailClick = this.onThumbnailClick.bind(this);
     this.onControlMouseEnter = this.onControlMouseEnter.bind(this);
@@ -27,9 +28,35 @@ class ProjectItem extends React.Component {
     this.state = {
       currentIndex: 0,
     };
+    this.galleryRef = React.createRef();
+    this.tick = false;
+  }
+
+  onSwiping(e, deltaX, deltaY, absX, absY, velocity) {
+    const halfGalleryWidth = this.galleryRef.current.offsetWidth / 2;
+    // const currentTransform = this.galleryRef.current.style.transform;
+    console.log(e, deltaX, deltaY, absX, absY, velocity);
+    if (!this.tick) {
+      console.log(Math.abs(deltaX), halfGalleryWidth);
+      if (Math.abs(deltaX) > halfGalleryWidth) {
+        this.setState({
+          overSwiped: true,
+        });
+        if (deltaX < 0) {
+          this.onSwipedRight();
+        } else {
+          this.onSwipedLeft();
+        }
+        return;
+      }
+      const translatePx = -deltaX;
+      this.tick = true;
+      this.requestAnimationId = requestAnimationFrame(this.setTranslateX.bind(this, translatePx));
+    }
   }
 
   onControlClick(e) {
+    window.cancelAnimationFrame(this.requestAnimationId);
     const dir = e.currentTarget.getAttribute('data-dir');
     const { currentIndex } = this.state;
     const { project } = this.props;
@@ -44,13 +71,16 @@ class ProjectItem extends React.Component {
       this.setState({
         showLeftControl: false,
       });
+      this.setTranslateX(0);
     } else if (nextIndex === images.length - 1) {
       this.setState({
         showRightControl: false,
       });
+      this.setTranslateX(0);
     }
     this.setState({
       currentIndex: nextIndex,
+      overSwiped: false,
     });
   }
 
@@ -96,6 +126,20 @@ class ProjectItem extends React.Component {
     }
   }
 
+  setTranslateX(translatePx) {
+    const { currentIndex } = this.state;
+    this.tick = false;
+    let nextTransform = '';
+    if (currentIndex > 0) {
+      nextTransform = `translateX(-${currentIndex}00%) `;
+    }
+    if (translatePx) {
+      nextTransform += `translateX(${translatePx}px)`;
+    }
+    console.log(nextTransform);
+    this.galleryRef.current.style.transform = nextTransform;
+  }
+
   renderThumbnails() {
     const { project } = this.props;
     const { images } = project;
@@ -124,7 +168,12 @@ class ProjectItem extends React.Component {
   render() {
     const { project } = this.props;
     const { images } = project;
-    const { currentIndex, showLeftControl, showRightControl } = this.state;
+    const {
+      currentIndex,
+      showLeftControl,
+      showRightControl,
+      overSwiped,
+    } = this.state;
 
     return (
       <div className="project-item" id={project.name}>
@@ -132,16 +181,19 @@ class ProjectItem extends React.Component {
         <div className="gallery">
           <div className="gallery__body-wrapper">
             <Swipeable
+              onSwiping={this.onSwiping}
               onSwipedRight={this.onSwipedRight}
               onSwipedLeft={this.onSwipedLeft}
               preventDefaultTouchmoveEvent
               stopPropagation
+              disabled={overSwiped}
             >
               <div
                 className="gallery__body"
                 style={{
                   transform: `translateX(-${currentIndex}00%)`,
                 }}
+                ref={this.galleryRef}
               >
                 {images.map(i => (<img
                   src={`${i.prepend}${i.filename}`}
