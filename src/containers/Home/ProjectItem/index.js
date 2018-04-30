@@ -33,7 +33,7 @@ class ProjectItem extends React.Component {
   }
 
   onSwiping(e, deltaX/* , deltaY, absX, absY, velocity */) {
-    const halfGalleryWidth = this.galleryRef.current.offsetWidth / 2;
+    const halfGalleryWidth = this.galleryRef.current.offsetWidth / 3;
     // const currentTransform = this.galleryRef.current.style.transform;
     // console.log(e, deltaX, deltaY, absX, absY, velocity);
     if (!this.tick) {
@@ -42,11 +42,14 @@ class ProjectItem extends React.Component {
         this.setState({
           overSwiped: true,
         });
-        if (deltaX < 0) {
-          this.onSwipedRight();
-        } else {
-          this.onSwipedLeft();
-        }
+        const self = this;
+        setTimeout(() => {
+          if (deltaX < 0) {
+            self.onSwipedRight();
+          } else {
+            self.onSwipedLeft();
+          }
+        }, 100);
         return;
       }
       const translatePx = -deltaX;
