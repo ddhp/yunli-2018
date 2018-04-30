@@ -68,17 +68,17 @@ class ProjectItem extends React.Component {
     } else {
       nextIndex = currentIndex + 1 > images.length - 1 ? 0 : currentIndex + 1;
     }
-    // if (nextIndex === 0) {
+    if (nextIndex === 0) {
     //   this.setState({
     //     showLeftControl: false,
     //   });
-    //   this.setTranslateX(0);
-    // } else if (nextIndex === images.length - 1) {
+      this.setTranslateX(0);
+    } else if (nextIndex === images.length - 1) {
     //   this.setState({
     //     showRightControl: false,
     //   });
-    //   this.setTranslateX(0);
-    // }
+      this.setTranslateX(0);
+    }
     this.setState({
       currentIndex: nextIndex,
       overSwiped: false,
