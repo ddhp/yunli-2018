@@ -22,6 +22,10 @@ class Nav extends React.Component {
 
   componentDidMount() {
     document.addEventListener('scroll', this.onScroll);
+    const self = this;
+    setTimeout(() => self.setState({
+      isOnStage: true,
+    }), 400);
   }
 
   onAClick(e) {
@@ -62,11 +66,16 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { currentActive } = this.state;
+    const { currentActive, isOnStage } = this.state;
 
     return (
       <nav>
-        <div className="nav__item">
+        <div
+          className={classNames('nav__item', {
+            'on-stage': isOnStage,
+          })}
+          id="nav-top"
+        >
           <a
             href="#top"
             onClick={this.onAClick}
@@ -78,7 +87,9 @@ class Nav extends React.Component {
         <div
           className={classNames('nav__item nav__item--about', {
             active: currentActive === 'about',
+            'on-stage': isOnStage,
           })}
+          id="nav-about"
         >
           <a
             href="#about"
@@ -91,7 +102,9 @@ class Nav extends React.Component {
         <div
           className={classNames('nav__item nav__item--index', {
             active: currentActive === 'index',
+            'on-stage': isOnStage,
           })}
+          id="nav-index"
         >
           <a
             href="#index"

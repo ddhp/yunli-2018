@@ -12,6 +12,7 @@ const debug = stdout('container/Home/IndexSection');
 export class IndexSection extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.object),
+    isOnStage: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -66,7 +67,7 @@ export class IndexSection extends React.Component {
   }
 
   render() {
-    const { images } = this.props;
+    const { images, isOnStage } = this.props;
     const { isBelow768, hoveredProjectId } = this.state;
     debug(images);
     const dup = images.slice();
@@ -82,7 +83,12 @@ export class IndexSection extends React.Component {
     }
 
     return (
-      <section className="section--index" id="index">
+      <section
+        className={classNames('section--index', {
+          'on-stage': isOnStage,
+        })}
+        id="index"
+      >
         {isBelow768 &&
           <p className="mobile-title">Index</p>
         }

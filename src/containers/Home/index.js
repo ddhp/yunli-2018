@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get as _get, debounce as _debounce } from 'lodash';
+import classNames from 'classnames';
 import NavComponent from '../Nav';
 import ProjectItem from './ProjectItem';
 import IndexSectionComponent from './IndexSection';
@@ -24,7 +25,9 @@ export class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isOnStage: false,
+    };
     this.onResize = _debounce(this.onResize.bind(this), 250);
   }
 
@@ -33,6 +36,10 @@ export class Home extends React.Component {
       this.onResize();
       window.addEventListener('resize', this.onResize);
     }
+    const self = this;
+    setTimeout(() => self.setState({
+      isOnStage: true,
+    }), 400);
   }
 
   componentWillUnmount() {
@@ -58,42 +65,26 @@ export class Home extends React.Component {
   render() {
     debug('render method');
     const { projects, author } = this.props;
-    const { isBelow768 } = this.state;
+    const { isBelow768, isOnStage } = this.state;
 
     return (
       <div className="page--home">
         <NavComponent />
 
-        <section className="intro">
+        <section
+          className={classNames('intro', {
+            'on-stage': isOnStage,
+          })}
+        >
           {author.intro}
         </section>
 
         {isBelow768 &&
-          <section className="contact">
-            <div className="email">
-              {author.email}
-            </div>
-            <div className="phone">
-              {author.phone}
-            </div>
-          </section>
-        }
-
-        <section className="list--projects">
-          {projects.map(p => <ProjectItem project={p} key={p.id} />)}
-        </section>
-
-        <IndexSectionComponent />
-
-        <section className="about" id="about">
-          {isBelow768 &&
-            <p className="mobile-title">About</p>
-          }
-          {author.about}
-        </section>
-
-        {!isBelow768 &&
-          <section className="contact">
+          <section
+            className={classNames('contact', {
+              'on-stage': isOnStage,
+            })}
+          >
             <div className="email">
               {author.email}
             </div>
@@ -104,7 +95,46 @@ export class Home extends React.Component {
         }
 
         <section
-          className="designby"
+          className={classNames('list--projects', {
+            'on-stage': isOnStage,
+          })}
+        >
+          {projects.map(p => <ProjectItem project={p} key={p.id} />)}
+        </section>
+
+        <IndexSectionComponent isOnStage={isOnStage} />
+
+        <section
+          className={classNames('about', {
+            'on-stage': isOnStage,
+          })}
+          id="about"
+        >
+          {isBelow768 &&
+            <p className="mobile-title">About</p>
+          }
+          {author.about}
+        </section>
+
+        {!isBelow768 &&
+          <section
+            className={classNames('contact', {
+              'on-stage': isOnStage,
+            })}
+          >
+            <div className="email">
+              {author.email}
+            </div>
+            <div className="phone">
+              {author.phone}
+            </div>
+          </section>
+        }
+
+        <section
+          className={classNames('designby', {
+            'on-stage': isOnStage,
+          })}
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
             __html: author.designby,
           }}

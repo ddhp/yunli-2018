@@ -10,6 +10,15 @@
     line-height: 2.2rem;
     margin: 0 0.3125rem;
     margin-bottom: 4.37rem;
+    transform: translateY(500px);
+    opacity: 0;
+
+    &.on-stage {
+      transition: transform 1500ms ease-in-out, opacity 1000ms;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 200ms;
+    }
   }
 
   .list--projects {
@@ -49,6 +58,17 @@
 
     a:hover {
       border-bottom: 1px solid black;
+    }
+  }
+
+  .list--projects, .section--index, .about, .contact, .designby {
+    opacity: 0;
+    transform: translateY(500px);
+    &.on-stage {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 1500ms ease-in-out, opacity 1000ms;
+      transition-delay: 1100ms;
     }
   }
 }
