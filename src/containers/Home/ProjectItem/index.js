@@ -10,6 +10,8 @@ class ProjectItem extends React.Component {
     super(props);
 
     this.onSwiping = this.onSwiping.bind(this);
+    this.onSwipingLeft = this.onSwipingLeft.bind(this);
+    this.onSwipingRight = this.onSwipingRight.bind(this);
     this.onControlClick = this.onControlClick.bind(this);
     this.onThumbnailClick = this.onThumbnailClick.bind(this);
     this.onControlMouseEnter = this.onControlMouseEnter.bind(this);
@@ -30,6 +32,14 @@ class ProjectItem extends React.Component {
     };
     this.galleryRef = React.createRef();
     this.tick = false;
+  }
+
+  onSwipingLeft(e, absX) {
+    this.onSwiping(e, absX);
+  }
+
+  onSwipingRight(e, absX) {
+    this.onSwiping(e, -absX);
   }
 
   onSwiping(e, deltaX/* , deltaY, absX, absY, velocity */) {
@@ -185,7 +195,8 @@ class ProjectItem extends React.Component {
         <div className="gallery">
           <div className="gallery__body-wrapper">
             <Swipeable
-              onSwiping={this.onSwiping}
+              onSwipingLeft={this.onSwipingLeft}
+              onSwipingRight={this.onSwipingRight}
               onSwipedRight={this.onSwipedRight}
               onSwipedLeft={this.onSwipedLeft}
               preventDefaultTouchmoveEvent
