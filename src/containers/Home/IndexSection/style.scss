@@ -8,6 +8,8 @@
   .mobile-title {
     width: 100%;
     margin-bottom: 1rem;
+    font-size: 1.75rem;
+    margin-left: 0.3125rem;
   }
 
   .index-img {
@@ -55,7 +57,6 @@
   .section--index {
     .index-img {
       width: calc((100%)/3);
-      padding: 0.15rem;
     }
   }
 }
