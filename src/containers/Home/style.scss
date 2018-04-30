@@ -10,11 +10,11 @@
     line-height: 2.2rem;
     margin: 0 0.3125rem;
     margin-bottom: 4.37rem;
-    transform: translateY(500px);
+    transform: translateY(200px);
     opacity: 0;
 
     &.on-stage {
-      transition: transform 1500ms ease-in-out, opacity 1000ms;
+      transition: transform 1200ms ease-in-out, opacity 800ms;
       opacity: 1;
       transform: translateY(0);
       transition-delay: 200ms;
@@ -63,11 +63,11 @@
 
   .list--projects, .section--index, .about, .contact, .designby {
     opacity: 0;
-    transform: translateY(500px);
+    transform: translateY(200px);
     &.on-stage {
       opacity: 1;
       transform: translateY(0);
-      transition: transform 1500ms ease-in-out, opacity 1000ms;
+      transition: transform 1200ms ease-in-out, opacity 800ms;
       transition-delay: 1100ms;
     }
   }
