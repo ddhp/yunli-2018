@@ -29,6 +29,9 @@ export class Home extends React.Component {
       isOnStage: false,
     };
     this.onResize = _debounce(this.onResize.bind(this), 250);
+    this.aboutRef = React.createRef();
+    this.contactRef = React.createRef();
+    this.designbyRef = React.createRef();
   }
 
   componentDidMount(/* nextProps, prevState */) {
@@ -50,9 +53,22 @@ export class Home extends React.Component {
 
   onResize() {
     debug(document.body.offsetWidth);
+    const isBelow768 = document.body.offsetWidth <= 768;
     this.setState({
-      isBelow768: document.body.offsetWidth <= 768,
+      isBelow768,
     });
+
+    if (isBelow768) {
+      return;
+    }
+    // calculate height of about section
+    const totalHeight = this.aboutRef.current.offsetHeight +
+      this.contactRef.current.offsetHeight +
+      this.designbyRef.current.offsetHeight;
+    if (totalHeight < window.innerHeight) {
+      const targetMarginTop = (window.innerHeight - totalHeight);
+      this.designbyRef.current.style.marginTop = `${targetMarginTop}px`;
+    }
   }
 
   componentDidCatch(error, info) {
@@ -109,6 +125,7 @@ export class Home extends React.Component {
             'on-stage': isOnStage,
           })}
           id="about"
+          ref={this.aboutRef}
         >
           {isBelow768 &&
             <p className="mobile-title">About</p>
@@ -121,6 +138,7 @@ export class Home extends React.Component {
             className={classNames('contact', {
               'on-stage': isOnStage,
             })}
+            ref={this.contactRef}
           >
             <div className="email">
               {author.email}
@@ -138,6 +156,7 @@ export class Home extends React.Component {
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
             __html: author.designby,
           }}
+          ref={this.designbyRef}
         />
 
       </div>

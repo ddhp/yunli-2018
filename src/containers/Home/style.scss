@@ -42,7 +42,7 @@
   .contact {
     width: calc((100% - 1.875rem)/4*2 + 0.625rem);
     margin-left: calc((100% - 1.875rem)/4 + 0.625rem + 0.3125rem);
-    margin-top: 4.37rem;
+    padding-top: 4.37rem;
     word-break: break-word;
 
     .email, .phone {
@@ -53,8 +53,8 @@
 
   .designby {
     margin-left: calc((100% - 1.875rem)/4*3 + 0.625rem*3);
-    margin-top: 4.4rem;
-    margin-bottom: 6rem;
+    padding-top: 4.4rem;
+    padding-bottom: 2rem;
 
     a:hover {
       border-bottom: 1px solid black;
