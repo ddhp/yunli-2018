@@ -14,8 +14,6 @@ class ProjectItem extends React.Component {
     this.onSwipingRight = this.onSwipingRight.bind(this);
     this.onControlClick = this.onControlClick.bind(this);
     this.onThumbnailClick = this.onThumbnailClick.bind(this);
-    this.onControlMouseEnter = this.onControlMouseEnter.bind(this);
-    this.onControlMouseLeave = this.onControlMouseLeave.bind(this);
     this.onSwipedRight = this.onControlClick.bind(this, {
       currentTarget: {
         getAttribute: () => 'left',
@@ -105,41 +103,6 @@ class ProjectItem extends React.Component {
     });
   }
 
-  onControlMouseEnter(e) {
-    const dir = e.currentTarget.getAttribute('data-dir');
-    const { project } = this.props;
-    const { images } = project;
-    const { currentIndex } = this.state;
-    if (dir === 'left') {
-      if (currentIndex > 0) {
-        return this.setState({
-          showLeftControl: true,
-        });
-      }
-    }
-    if (dir === 'right') {
-      if (currentIndex < images.length - 1) {
-        return this.setState({
-          showRightControl: true,
-        });
-      }
-    }
-    return null;
-  }
-
-  onControlMouseLeave(e) {
-    const dir = e.currentTarget.getAttribute('data-dir');
-    if (dir === 'left') {
-      this.setState({
-        showLeftControl: false,
-      });
-    } else {
-      this.setState({
-        showRightControl: false,
-      });
-    }
-  }
-
   setTranslateX(translatePx) {
     const { currentIndex } = this.state;
     this.tick = false;
@@ -224,8 +187,6 @@ class ProjectItem extends React.Component {
                   data-dir="left"
                   onClick={this.onControlClick}
                   onKeyPress={this.onControlClick}
-                  onMouseEnter={this.onControlMouseEnter}
-                  onMouseLeave={this.onControlMouseLeave}
                   role="button"
                   tabIndex="0"
                 >
@@ -238,8 +199,6 @@ class ProjectItem extends React.Component {
                   data-dir="right"
                   onClick={this.onControlClick}
                   onKeyPress={this.onControlClick}
-                  onMouseEnter={this.onControlMouseEnter}
-                  onMouseLeave={this.onControlMouseLeave}
                   role="button"
                   tabIndex="-1"
                 >

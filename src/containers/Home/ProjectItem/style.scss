@@ -83,11 +83,10 @@
       width: 50%;
       height: 100%;
       opacity: 0;
+      cursor: url(../../../assets/images/arrow_right.png), auto;
 
       &.to-left {
-        img {
-          transform: scale(-1, 1);
-        }
+        cursor: url(../../../assets/images/arrow_left.png), auto;
       }
 
       img {
