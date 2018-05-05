@@ -63,8 +63,10 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "animated-scroll-to": "^1.1.11",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.18.2",
+    "camelize": "^1.0.0",
     "classnames": "^2.2.5",
     "debug": "^3.1.0",
     "express": "^4.16.2",
@@ -80,10 +82,13 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-swipeable": "^4.2.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "superagent": "^3.8.2"
+    "sqlite": "^2.9.1",
+    "superagent": "^3.8.2",
+    "transform-runtime": "^0.0.0"
   },
   "description": "This boilerplate would help you build a react/redux/react-router isomorphic/universal web app",
   "repository": {

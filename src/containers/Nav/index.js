@@ -1,38 +1,140 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { get as _get } from 'lodash';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import animateScrollTo from 'animated-scroll-to';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import { get as _get } from 'lodash';
 import './style.scss';
 
-const Nav = ({ name }) => (
-  <nav>
-    <Link to="/">Rib.</Link>
-    <Link to="/about">About</Link>
-    <Link to="/demo">Demo</Link>
-    <a href="another-entry">Another</a>
+class Nav extends React.Component {
+  constructor(props) {
+    super(props);
 
-    <div className="user-info">
-      your are {name}
-    </div>
-  </nav>
-);
+    this.state = {
+      currentActive: undefined,
+    };
 
-Nav.propTypes = {
-  name: PropTypes.string,
-};
+    this.onScroll = this.onScroll.bind(this);
+    this.checkScrollTop = this.checkScrollTop.bind(this);
+    this.onAClick = this.onAClick.bind(this);
+    this.tick = false;
+  }
 
-Nav.defaultProps = {
-  name: '',
-};
+  componentDidMount() {
+    document.addEventListener('scroll', this.onScroll);
+    const self = this;
+    setTimeout(() => self.setState({
+      isOnStage: true,
+    }), 400);
+  }
 
-function mapStateToProps(state) {
-  const entities = _get(state, 'entities');
-  const name = _get(entities, 'me.name');
+  onAClick(e) {
+    e.preventDefault();
+    const target = e.currentTarget.getAttribute('data-target');
+    this.setState();
+    window.history.pushState(null, null, `#${target}`);
+    const targetDOM = document.querySelector(`#${target}`);
+    animateScrollTo(targetDOM);
+  }
 
-  return {
-    name,
-  };
+  onScroll() {
+    if (!this.tick) {
+      this.tick = true;
+      requestAnimationFrame(this.checkScrollTop);
+    }
+  }
+
+  checkScrollTop() {
+    let nextActive;
+    const { currentActive } = this.state;
+    this.tick = false;
+    const sectionAboutOffsetTop = document.querySelector('section.about').offsetTop;
+    const sectionIndexOffsetTop = document.querySelector('section.section--index').offsetTop;
+    const windowScrollY = window.scrollY;
+    if (windowScrollY >= sectionAboutOffsetTop - 10) {
+      nextActive = 'about';
+    } else if (windowScrollY >= sectionIndexOffsetTop) {
+      nextActive = 'index';
+    } else {
+      nextActive = undefined;
+    }
+    if (currentActive !== nextActive) {
+      this.setState({
+        currentActive: nextActive,
+      });
+    }
+  }
+
+  render() {
+    const { currentActive, isOnStage } = this.state;
+
+    return (
+      <nav>
+        <div
+          className={classNames('nav__item', {
+            'on-stage': isOnStage,
+          })}
+          id="nav-top"
+        >
+          <a
+            href="#top"
+            onClick={this.onAClick}
+            data-target="intro"
+          >
+            Yun Li
+          </a>
+        </div>
+        <div
+          className={classNames('nav__item nav__item--about', {
+            active: currentActive === 'about',
+            'on-stage': isOnStage,
+          })}
+          id="nav-about"
+        >
+          <a
+            href="#about"
+            onClick={this.onAClick}
+            data-target="about"
+          >
+            About
+          </a>
+        </div>
+        <div
+          className={classNames('nav__item nav__item--index', {
+            active: currentActive === 'index',
+            'on-stage': isOnStage,
+          })}
+          id="nav-index"
+        >
+          <a
+            href="#index"
+            onClick={this.onAClick}
+            data-target="index"
+          >
+            Index
+          </a>
+        </div>
+      </nav>
+    );
+  }
 }
 
-export default connect(mapStateToProps, null)(Nav);
+// Nav.propTypes = {
+//   name: PropTypes.string,
+// };
+//
+// Nav.defaultProps = {
+//   name: '',
+// };
+
+// function mapStateToProps(state) {
+//   const entities = _get(state, 'entities');
+//   const name = _get(entities, 'me.name');
+//
+//   return {
+//     name,
+//   };
+// }
+
+export default Nav;
+// export default connect(mapStateToProps, null)(Nav);

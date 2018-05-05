@@ -1,6 +1,99 @@
+$translateYpx: 1000px;
+$translateDuration: 2200ms;
+
 .page--home {
-  .list--posts {
-    width: 70%;
-    margin: 0 auto;
+  // margin: 0.625rem 0.9rem;
+  margin: 0.625rem;
+  margin-top: 0.4rem;
+  vertical-align: baseline;
+
+  .intro {
+    white-space: pre-wrap;  
+    padding-top: 4.4rem;
+    font-size: 1.75rem;
+    line-height: 2.2rem;
+    margin: 0 0.3125rem;
+    margin-bottom: 4.37rem;
+    transform: translateY($translateYpx);
+    opacity: 0;
+
+    &.on-stage {
+      transition: transform $translateDuration ease-in-out, opacity 800ms;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 200ms;
+    }
+  }
+
+  .list--projects {
+    margin: 0 0.3125rem;
+  }
+  
+  .about {
+    width: calc((100% - 1.875rem)/4*3 + 0.625rem*2);
+    font-size: 1.75rem;
+    line-height: 2.2rem;
+    padding-top: 5.37rem;
+    text-indent: calc((100% - 1.875rem)/4 + 0.625rem*1);
+    margin: 0 0.3125rem;
+
+    .mobile-title {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .contact {
+    width: calc((100% - 1.875rem)/4*2 + 0.625rem);
+    margin-left: calc((100% - 1.875rem)/4 + 0.625rem + 0.3125rem);
+    padding-top: 4.37rem;
+    word-break: break-word;
+
+    .email, .phone {
+      font-size: 1.75rem;
+      line-height: 2.2rem;
+    }
+  }
+
+  .designby {
+    margin-left: calc((100% - 1.875rem)/4*3 + 0.625rem*3);
+    padding-top: 4.4rem;
+    padding-bottom: 2rem;
+
+    a:hover {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .list--projects, .section--index, .about, .contact, .designby {
+    opacity: 0;
+    transform: translateY($translateYpx);
+    &.on-stage {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform $translateDuration ease-in-out, opacity 800ms;
+      transition-delay: 1100ms;
+    }
+  }
+}
+
+//tablet
+@media (max-width: 768px) {
+  .page--home {
+    .contact {
+      width: 100%;
+      margin-left: 0.3125rem;
+      margin-right: 0.3125rem;
+    }
+
+    .about {
+      width: 100%;
+      text-indent: 0;
+    }
+
+    .designby {
+      margin-left: 0.3125rem;
+      margin-right: 0.3125rem;
+      text-align: right;
+    }
   }
 }

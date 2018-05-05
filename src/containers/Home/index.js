@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { get as _get } from 'lodash';
-import action from '../../actions';
-import FormPostComponent from './FormPost';
-import PostlistComponent from './Postlist';
+import { get as _get, debounce as _debounce } from 'lodash';
+import classNames from 'classnames';
+import NavComponent from '../Nav';
+import ProjectItem from './ProjectItem';
+import IndexSectionComponent from './IndexSection';
+// import action from '../../actions';
 import stdout from '../../stdout';
 import './style.scss';
 
@@ -13,55 +14,179 @@ const debug = stdout('container/Home');
 
 export class Home extends React.Component {
   static propTypes = {
-    dummyAction: PropTypes.func.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.number),
+    author: PropTypes.object,
+    projects: PropTypes.arrayOf(PropTypes.object),
   }
 
   static defaultProps = {
-    posts: [],
+    author: {},
+    projects: [],
   }
 
-  componentDidMount() {
-    this.props.dummyAction();
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOnStage: false,
+    };
+    this.onResize = _debounce(this.onResize.bind(this), 250);
+    this.aboutRef = React.createRef();
+    this.contactRef = React.createRef();
+    this.designbyRef = React.createRef();
+  }
+
+  componentDidMount(/* nextProps, prevState */) {
+    if (typeof window !== 'undefined') {
+      this.onResize();
+      window.addEventListener('resize', this.onResize);
+    }
+    const self = this;
+    setTimeout(() => self.setState({
+      isOnStage: true,
+    }), 400);
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize);
+    }
+  }
+
+  onResize() {
+    debug(document.body.offsetWidth);
+    const isBelow768 = document.body.offsetWidth <= 768;
+    this.setState({
+      isBelow768,
+    });
+
+    if (isBelow768) {
+      return;
+    }
+    // calculate height of about section
+    const totalHeight = this.aboutRef.current.offsetHeight +
+      this.contactRef.current.offsetHeight +
+      this.designbyRef.current.offsetHeight;
+    if (totalHeight < window.innerHeight) {
+      const targetMarginTop = (window.innerHeight - totalHeight);
+      this.designbyRef.current.style.marginTop = `${targetMarginTop}px`;
+    }
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    // this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    debug(error, info, this);
   }
 
   render() {
     debug('render method');
-    const { posts } = this.props;
+    const { projects, author } = this.props;
+    const { isBelow768, isOnStage } = this.state;
 
     return (
       <div className="page--home">
-        <Helmet>
-          <title>Home</title>
-          <meta name="description" content="home page shows posts" />
-          <meta name="og:title" content="home page" />
-        </Helmet>
+        <NavComponent />
 
-        <FormPostComponent />
+        <section
+          className={classNames('intro', {
+            'on-stage': isOnStage,
+          })}
+        >
+          {author.intro}
+        </section>
 
-        <ul className="list--posts">
-          {posts.map(p => <PostlistComponent post={p} key={p.id} />)}
-        </ul>
+        {isBelow768 &&
+          <section
+            className={classNames('contact', {
+              'on-stage': isOnStage,
+            })}
+          >
+            <div className="email">
+              {author.email}
+            </div>
+            <div className="phone">
+              {author.phone}
+            </div>
+          </section>
+        }
+
+        <section
+          className={classNames('list--projects', {
+            'on-stage': isOnStage,
+          })}
+        >
+          {projects.map(p => <ProjectItem project={p} key={p.id} />)}
+        </section>
+
+        <IndexSectionComponent isOnStage={isOnStage} />
+
+        <section
+          className={classNames('about', {
+            'on-stage': isOnStage,
+          })}
+          id="about"
+          ref={this.aboutRef}
+        >
+          {isBelow768 &&
+            <p className="mobile-title">About</p>
+          }
+          {author.about}
+        </section>
+
+        {!isBelow768 &&
+          <section
+            className={classNames('contact', {
+              'on-stage': isOnStage,
+            })}
+            ref={this.contactRef}
+          >
+            <div className="email">
+              {author.email}
+            </div>
+            <div className="phone">
+              {author.phone}
+            </div>
+          </section>
+        }
+
+        <section
+          className={classNames('designby', {
+            'on-stage': isOnStage,
+          })}
+          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+            __html: author.designby,
+          }}
+          ref={this.designbyRef}
+        />
+
       </div>
     );
   }
 }
 
 export function mapStateToProps(state) {
-  const postEntity = _get(state, 'entities.post');
-  const postIds = _get(state, 'pages.home.posts');
-  let posts = postIds.map(id => postEntity[id] || {});
-  posts = posts.slice(0, 20);
-  debug(posts);
+  const projectEntity = _get(state, 'entities.project');
+  const imageEntity = _get(state, 'entities.image');
+  const author = _get(state, 'entities.author');
+  debug(imageEntity);
+  const projectIds = _get(state, 'pages.home.projects');
+  const projects = projectIds.map((id) => {
+    const project = projectEntity[id];
+    if (!project) return {};
+    project.images = project.images.map(iId => imageEntity[iId] || {});
+    return project;
+  });
+  debug(projects);
 
   return {
-    posts,
+    projects,
+    author: author['1'],
   };
 }
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(/* dispatch */) {
   return {
-    dummyAction: () => dispatch(action.dummyAction()),
+    // dummyAction: () => dispatch(action.dummyAction()),
   };
 }
 
