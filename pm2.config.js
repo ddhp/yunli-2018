@@ -11,7 +11,8 @@ apps : [
     env: {
       COMMON_VARIABLE: 'true',
       NODE_ENV: 'development',
-      DEBUG: '*,-nodemon*,-express*,-send,-babel'
+      DEBUG: '*,-nodemon*,-express*,-send,-babel',
+      PORT: '7272'
     },
     env_stage: {
       NODE_ENV: 'stage'
