@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { get as _get, debounce as _debounce } from 'lodash';
+import animateScrollTo from 'animated-scroll-to';
 // import { get as _get } from 'lodash';
 import stdout from '../../../stdout';
 import './style.scss';
@@ -25,6 +26,7 @@ export class IndexSection extends React.Component {
     this.onResize = _debounce(this.onResize.bind(this), 250);
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onAClick = this.onAClick.bind(this);
   }
 
   componentDidMount(/* nextProps, prevState */) {
@@ -59,6 +61,15 @@ export class IndexSection extends React.Component {
     });
   }
 
+  onAClick(e) {
+    e.preventDefault();
+    const target = e.currentTarget.getAttribute('data-target');
+    this.setState();
+    window.history.pushState(null, null, `#${target}`);
+    const targetDOM = document.querySelector(`#${target}`);
+    animateScrollTo(targetDOM);
+  }
+
   componentDidCatch(error, info) {
     // Display fallback UI
     // this.setState({ hasError: true });
@@ -75,10 +86,12 @@ export class IndexSection extends React.Component {
     if (!isBelow768) {
       dup.unshift({
         id: 'dummy1',
+        projectName: '',
       });
 
       dup.unshift({
         id: 'dummy2',
+        projectName: '',
       });
     }
 
@@ -106,6 +119,8 @@ export class IndexSection extends React.Component {
               data-key={i.projectId}
               onMouseEnter={this.onMouseEnter}
               onMouseLeave={this.onMouseLeave}
+              onClick={this.onAClick}
+              data-target={i.projectName.replace(/ /g, '')}
             >
               {i.filename &&
                 <img

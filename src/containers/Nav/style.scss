@@ -1,3 +1,6 @@
+$translateYpx: 1000px;
+$translateDuration: 2200ms;
+
 nav {
   position: fixed;
   display: flex;
@@ -11,14 +14,14 @@ nav {
     width: calc((100% - 3.75rem)/4);
     margin-right: 0.625rem;
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY($translateYpx);
 
     a:hover {
       border-bottom: 2px solid black;
     }
 
     &.on-stage {
-      transition: transform 1200ms ease-in-out, opacity 800ms;
+      transition: transform $translateDuration ease-in-out, opacity 800ms;
       opacity: 1;
       transform: translateY(0);
 

@@ -190,7 +190,7 @@ class ProjectItem extends React.Component {
     } = this.state;
 
     return (
-      <div className="project-item" id={project.name}>
+      <div className="project-item" id={project.name.replace(/ /g, '')}>
         <div className="name">{project.name}</div>
         <div className="gallery">
           <div className="gallery__body-wrapper">

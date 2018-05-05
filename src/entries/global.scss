@@ -37,6 +37,13 @@
   box-sizing: border-box;
 }
 
+* {
+  &::selection {
+    background-color: #000;
+    color: #FFF;
+  }
+}
+
 input, textarea, button {
   outline: none;
 }

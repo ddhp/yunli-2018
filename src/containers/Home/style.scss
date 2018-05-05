@@ -1,6 +1,10 @@
+$translateYpx: 1000px;
+$translateDuration: 2200ms;
+
 .page--home {
   // margin: 0.625rem 0.9rem;
   margin: 0.625rem;
+  margin-top: 0.4rem;
   vertical-align: baseline;
 
   .intro {
@@ -10,11 +14,11 @@
     line-height: 2.2rem;
     margin: 0 0.3125rem;
     margin-bottom: 4.37rem;
-    transform: translateY(200px);
+    transform: translateY($translateYpx);
     opacity: 0;
 
     &.on-stage {
-      transition: transform 1200ms ease-in-out, opacity 800ms;
+      transition: transform $translateDuration ease-in-out, opacity 800ms;
       opacity: 1;
       transform: translateY(0);
       transition-delay: 200ms;
@@ -32,7 +36,6 @@
     padding-top: 5.37rem;
     text-indent: calc((100% - 1.875rem)/4 + 0.625rem*1);
     margin: 0 0.3125rem;
-    hyphens: auto;
 
     .mobile-title {
       margin-bottom: 2rem;
@@ -63,11 +66,11 @@
 
   .list--projects, .section--index, .about, .contact, .designby {
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY($translateYpx);
     &.on-stage {
       opacity: 1;
       transform: translateY(0);
-      transition: transform 1200ms ease-in-out, opacity 800ms;
+      transition: transform $translateDuration ease-in-out, opacity 800ms;
       transition-delay: 1100ms;
     }
   }
