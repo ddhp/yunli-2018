@@ -16,7 +16,6 @@
     position: relative;
     width: calc((100%)/4);
     padding: 0.3125rem;
-    vertical-align: middle;
 
     &.same-project-hovered {
       img {
@@ -33,6 +32,7 @@
       height: 100%;
       transition: opacity 200ms ease-in-out;
       backface-visibility: hidden;
+      vertical-align: middle;
     }
 
     .project-name {
