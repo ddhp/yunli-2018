@@ -48,8 +48,15 @@ input, textarea, button {
   outline: none;
 }
 
+html {
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font-family: 'Space Mono', monospace;
+  background-color: #fff;
 }
 
 a {

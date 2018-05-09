@@ -9,6 +9,8 @@ nav {
   line-height: 2.2rem;
   z-index: 1;
   margin-left: 0.3125rem;
+  color: #fff;
+  mix-blend-mode: difference;
 
   .nav__item {
     width: calc((100% - 3.75rem)/4);
@@ -16,8 +18,12 @@ nav {
     opacity: 0;
     transform: translateY($translateYpx);
 
+    a {
+      color: #fff;
+    }
+
     a:hover {
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid white;
     }
 
     &.on-stage {
