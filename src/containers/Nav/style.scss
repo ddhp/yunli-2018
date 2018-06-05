@@ -1,5 +1,5 @@
 $translateYpx: 1000px;
-$translateDuration: 2200ms;
+$translateDuration: 1200ms;
 
 nav {
   position: fixed;
@@ -35,11 +35,11 @@ nav {
       }
 
       &#nav-about {
-        transition-delay: 500ms;
+        transition-delay: 300ms;
       }
 
       &#nav-index {
-        transition-delay: 800ms;
+        transition-delay: 500ms;
       }
     }
   }

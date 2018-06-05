@@ -1,5 +1,5 @@
 $translateYpx: 1000px;
-$translateDuration: 2200ms;
+$translateDuration: 1200ms;
 
 .page--home {
   // margin: 0.625rem 0.9rem;
@@ -21,7 +21,7 @@ $translateDuration: 2200ms;
       transition: transform $translateDuration ease-in-out, opacity 800ms;
       opacity: 1;
       transform: translateY(0);
-      transition-delay: 200ms;
+      transition-delay: 100ms;
     }
   }
 
@@ -71,7 +71,7 @@ $translateDuration: 2200ms;
       opacity: 1;
       transform: translateY(0);
       transition: transform $translateDuration ease-in-out, opacity 800ms;
-      transition-delay: 1100ms;
+      transition-delay: 800ms;
     }
   }
 }
