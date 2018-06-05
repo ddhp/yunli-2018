@@ -54,17 +54,23 @@ $translateDuration: 1200ms;
     }
   }
 
-  .designby {
-    margin-left: calc((100% - 1.875rem)/4*3 + 0.625rem*3);
+  .copyright {
+    display: inline-flex;
+    width: 100%;
     padding-top: 4.4rem;
     padding-bottom: 2rem;
 
     a:hover {
       border-bottom: 1px solid black;
     }
+
+    .cr-yunli {
+      margin-left: calc((100% - 1.875rem)/4 + 0.625rem + 0.3125rem);
+      width: calc((100% - 1.875rem)/4*2 + 0.625rem);
+    }
   }
 
-  .list--projects, .section--index, .about, .contact, .designby {
+  .list--projects, .section--index, .about, .contact, .copyright {
     opacity: 0;
     transform: translateY($translateYpx);
     &.on-stage {
@@ -86,14 +92,20 @@ $translateDuration: 1200ms;
     }
 
     .about {
-      width: 100%;
+      width: inherit;
       text-indent: 0;
     }
 
-    .designby {
+    .copyright {
       margin-left: 0.3125rem;
       margin-right: 0.3125rem;
-      text-align: right;
+      flex-direction: column;
+
+      .cr-yunli {
+        margin-left: 0;
+        width: auto;
+        margin-bottom: 0.5rem;
+      }
     }
   }
 }

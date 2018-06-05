@@ -150,14 +150,21 @@ export class Home extends React.Component {
         }
 
         <section
-          className={classNames('designby', {
+          className={classNames('copyright', {
             'on-stage': isOnStage,
           })}
-          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-            __html: author.designby,
-          }}
           ref={this.designbyRef}
-        />
+        >
+          <div className="cr-yunli">
+            {author.copyright}
+          </div>
+          <div
+            className="designby"
+            dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+              __html: author.designby,
+            }}
+          />
+        </section>
 
       </div>
     );
