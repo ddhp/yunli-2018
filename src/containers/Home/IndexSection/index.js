@@ -36,6 +36,13 @@ export class IndexSection extends React.Component {
     }
   }
 
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    // this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    debug(error, info, this);
+  }
+
   componentWillUnmount() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize);
@@ -68,13 +75,6 @@ export class IndexSection extends React.Component {
     window.history.pushState(null, null, `#${target}`);
     const targetDOM = document.querySelector(`#${target}`);
     animateScrollTo(targetDOM);
-  }
-
-  componentDidCatch(error, info) {
-    // Display fallback UI
-    // this.setState({ hasError: true });
-    // You can also log the error to an error reporting service
-    debug(error, info, this);
   }
 
   render() {

@@ -45,6 +45,13 @@ export class Home extends React.Component {
     }), 400);
   }
 
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    // this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    debug(error, info, this);
+  }
+
   componentWillUnmount() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize);
@@ -69,13 +76,6 @@ export class Home extends React.Component {
       const targetMarginTop = (window.innerHeight - totalHeight);
       this.designbyRef.current.style.marginTop = `${targetMarginTop}px`;
     }
-  }
-
-  componentDidCatch(error, info) {
-    // Display fallback UI
-    // this.setState({ hasError: true });
-    // You can also log the error to an error reporting service
-    debug(error, info, this);
   }
 
   render() {

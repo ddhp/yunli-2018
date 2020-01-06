@@ -15,17 +15,26 @@
     "report": "cross-env NODE_ENV=test nyc ava && yarn run coverage"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "asset-require-hook": "^1.2.0",
     "autoprefixer": "^8.2.0",
     "ava": "^0.25.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-loader": "^7.1.2",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.0",
     "babel-plugin-istanbul": "^4.1.5",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.0",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
@@ -63,8 +72,9 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.0.0",
     "animated-scroll-to": "^1.1.11",
-    "babel-runtime": "^6.26.0",
+    "babel-upgrade": "^1.0.1",
     "body-parser": "^1.18.2",
     "camelize": "^1.0.0",
     "classnames": "^2.2.5",
@@ -117,7 +127,7 @@
       "!test/helpers/**/*"
     ],
     "require": [
-      "babel-register",
+      "@babel/register",
       "ignore-styles",
       "./src/enzymeSetup.js"
     ],
