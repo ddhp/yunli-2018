@@ -50,7 +50,6 @@ export class IndexSection extends React.Component {
   }
 
   onResize() {
-    debug(this.props.images, document.body.offsetWidth);
     this.setState({
       isBelow768: document.body.offsetWidth <= 768,
     });
@@ -80,7 +79,6 @@ export class IndexSection extends React.Component {
   render() {
     const { images, isOnStage } = this.props;
     const { isBelow768, hoveredProjectId } = this.state;
-    debug(images);
     const dup = images.slice();
 
     if (!isBelow768) {
@@ -143,8 +141,15 @@ export class IndexSection extends React.Component {
 
 export function mapStateToProps(state) {
   const imageEntity = _get(state, 'entities.image');
+  const projectEntity = _get(state, 'entities.project');
   const keys = Object.keys(imageEntity);
-  const images = keys.map(k => imageEntity[k]);
+  const images = keys.map(k => imageEntity[k]).sort((a, b) => {
+    const aIndex = projectEntity[a.projectId].orderIndex;
+    const bIndex = projectEntity[b.projectId].orderIndex;
+    if (aIndex < bIndex) return -1;
+    else if (aIndex === bIndex) return 0;
+    return 1;
+  });
 
   return {
     images,

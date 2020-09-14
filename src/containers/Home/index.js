@@ -59,7 +59,6 @@ export class Home extends React.Component {
   }
 
   onResize() {
-    debug(document.body.offsetWidth);
     const isBelow768 = document.body.offsetWidth <= 768;
     this.setState({
       isBelow768,
@@ -79,7 +78,6 @@ export class Home extends React.Component {
   }
 
   render() {
-    debug('render method');
     const { projects, author } = this.props;
     const { isBelow768, isOnStage } = this.state;
 
@@ -169,7 +167,6 @@ export function mapStateToProps(state) {
   const projectEntity = _get(state, 'entities.project');
   const imageEntity = _get(state, 'entities.image');
   const author = _get(state, 'entities.author');
-  debug(imageEntity);
   const projectIds = _get(state, 'pages.home.projects');
   const projects = projectIds.map((id) => {
     const project = projectEntity[id];
@@ -177,7 +174,6 @@ export function mapStateToProps(state) {
     project.images = project.images.map(iId => imageEntity[iId] || {});
     return project;
   });
-  debug(projects);
 
   return {
     projects,
