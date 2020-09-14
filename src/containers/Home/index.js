@@ -104,9 +104,6 @@ export class Home extends React.Component {
             <div className="email">
               {author.email}
             </div>
-            <div className="phone">
-              {author.phone}
-            </div>
           </section>
         }
 
@@ -142,9 +139,6 @@ export class Home extends React.Component {
           >
             <div className="email">
               {author.email}
-            </div>
-            <div className="phone">
-              {author.phone}
             </div>
           </section>
         }
