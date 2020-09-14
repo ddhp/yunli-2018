@@ -1,10 +1,11 @@
 /* eslint-disable */
-import sqlite from 'sqlite';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 import path from 'path';
 import camelize from 'camelize';
-const dbPromise = sqlite.open(path.resolve('db/yunli.db'), {
-  Promise,
-  cached: true 
+const dbPromise = open({
+  filename: path.resolve('db/yunli.db'), 
+  driver: sqlite3.Database,
 });
 
 export default async function defaultDataMiddleware (req, res, next) {
@@ -15,7 +16,7 @@ export default async function defaultDataMiddleware (req, res, next) {
     const db = await dbPromise;
     let [projects, images, author] = await Promise.all([
       db.all('SELECT * FROM project ORDER BY order_index ASC'),
-      db.all('SELECT * FROM image'),
+      db.all('SELECT * FROM images'),
       db.get('SELECT * FROM author WHERE name is "Yun Li"'),
     ]);
     projects = camelize(projects);
