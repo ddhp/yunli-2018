@@ -147,7 +147,10 @@ export function mapStateToProps(state) {
     const aIndex = projectEntity[a.projectId].orderIndex;
     const bIndex = projectEntity[b.projectId].orderIndex;
     if (aIndex < bIndex) return -1;
-    else if (aIndex === bIndex) return 0;
+    else if (aIndex === bIndex) {
+      if (a.orderIndex < b.orderIndex) return -1;
+      return 1;
+    }
     return 1;
   });
 
